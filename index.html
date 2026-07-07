@@ -17,6 +17,7 @@
     <div class="scroll-progress" id="scrollProgress"></div>
     <div class="cursor-glow" id="cursorGlow"></div>
     <canvas id="particleCanvas"></canvas>
+    <canvas id="matrixTrailCanvas"></canvas>
 
     <div class="blob-bg"></div>
     <div class="blob-bg blob-2"></div>
@@ -127,6 +128,10 @@
                         <span class="skill-tag" style="--clr: #008080;"><i class="fa-solid fa-users"></i> Acquisition</span>
                     </div>
                 </div>
+                <div class="skill-category glass-panel sphere-panel" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 250px;">
+                    <h3>Interactive Skill Sphere</h3>
+                    <canvas id="skillsSphereCanvas" width="220" height="220" style="max-width: 100%;"></canvas>
+                </div>
             </div>
         </section>
 
@@ -234,6 +239,14 @@
                 </div>
             </div>
         </section>
+
+        <!-- Infinite Looping Skill Marquee -->
+        <div class="marquee-wrapper">
+            <div class="marquee-content">
+                <span>DJANGO • FLUTTER • PYTHON • CYBERSECURITY • AI AUTOMATION • POSTGRESQL • REACT • GIT • REST APIS • MODEL CONTEXT PROTOCOL • </span>
+                <span>DJANGO • FLUTTER • PYTHON • CYBERSECURITY • AI AUTOMATION • POSTGRESQL • REACT • GIT • REST APIS • MODEL CONTEXT PROTOCOL • </span>
+            </div>
+        </div>
 
         <section id="projects" class="projects section">
             <div class="section-title">
@@ -452,6 +465,14 @@
     <footer>
         <p>&copy; 2026 Subham Parida. Designed with <i class="fa-solid fa-heart"></i> & Code.</p>
     </footer>
+
+    <!-- Project Detail Modal -->
+    <div id="projectModal" class="project-modal">
+        <div class="modal-content glass-panel">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body"></div>
+        </div>
+    </div>
 
     <!-- Scroll to Top Button -->
     <button id="scrollToTop" class="scroll-to-top glass-panel"><i class="fa-solid fa-arrow-up"></i></button>

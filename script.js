@@ -197,6 +197,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initCard3DTilt();
     initHackerText();
     initMagneticElements();
+    initSkillsSphere();
+    initMatrixCursorTrail();
+    initParallaxScroll();
+    initMorphModal();
 });
 
 // Typing text animation
@@ -479,5 +483,192 @@ const initMagneticElements = () => {
         });
     });
 }
+
+// 3D Tag Sphere Animation on Canvas
+const initSkillsSphere = () => {
+    const canvas = document.getElementById('skillsSphereCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const tags = ['Django', 'Python', 'Flutter', 'PostgreSQL', 'Firebase', 'Java', 'JavaScript', 'Git', 'MCP', 'LLMs', 'Dart', 'Meta Ads', 'Branding'];
+    
+    let radius = 95;
+    let counts = tags.length;
+    let particles = [];
+    
+    class TagParticle {
+        constructor(text, theta, phi) {
+            this.text = text;
+            this.theta = theta;
+            this.phi = phi;
+            this.x = 0;
+            this.y = 0;
+            this.z = 0;
+            this.pos3d();
+        }
+        pos3d() {
+            this.x = radius * Math.sin(this.theta) * Math.cos(this.phi);
+            this.y = radius * Math.sin(this.theta) * Math.sin(this.phi);
+            this.z = radius * Math.cos(this.theta);
+        }
+        rotate(angleX, angleY) {
+            let cosX = Math.cos(angleX);
+            let sinX = Math.sin(angleX);
+            let y1 = this.y * cosX - this.z * sinX;
+            let z1 = this.z * cosX + this.y * sinX;
+            
+            let cosY = Math.cos(angleY);
+            let sinY = Math.sin(angleY);
+            let x2 = this.x * cosY - z1 * sinY;
+            let z2 = z1 * cosY + this.x * sinY;
+            
+            this.x = x2;
+            this.y = y1;
+            this.z = z2;
+        }
+        draw() {
+            let scale = 230 / (230 - this.z);
+            let alpha = (this.z + radius) / (2 * radius) * 0.7 + 0.3;
+            
+            ctx.save();
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.scale(scale, scale);
+            
+            ctx.font = `bold 11px Outfit, sans-serif`;
+            ctx.fillStyle = `rgba(108, 99, 255, ${alpha})`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(this.text, this.x, this.y);
+            ctx.restore();
+        }
+    }
+    
+    for (let i = 0; i < counts; i++) {
+        let theta = Math.acos(-1 + (2 * i + 1) / counts);
+        let phi = Math.sqrt(counts * Math.PI) * theta;
+        particles.push(new TagParticle(tags[i], theta, phi));
+    }
+    
+    let angleX = 0.003;
+    let angleY = 0.003;
+    
+    canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left - canvas.width / 2;
+        const mouseY = e.clientY - rect.top - canvas.height / 2;
+        angleY = mouseX * 0.0001;
+        angleX = -mouseY * 0.0001;
+    });
+    
+    const run = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.sort((a, b) => b.z - a.z);
+        particles.forEach(p => {
+            p.rotate(angleX, angleY);
+            p.draw();
+        });
+        requestAnimationFrame(run);
+    }
+    run();
+}
+
+// Matrix Code Rain Cursor Trail
+const initMatrixCursorTrail = () => {
+    const canvas = document.getElementById('matrixTrailCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+    
+    const chars = "01";
+    const trail = [];
+    
+    window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    });
+    
+    document.addEventListener('mousemove', (e) => {
+        trail.push({
+            x: e.clientX,
+            y: e.clientY,
+            vy: Math.random() * 2 + 1,
+            val: chars[Math.floor(Math.random() * chars.length)],
+            opacity: 1.0,
+            size: Math.random() * 10 + 12
+        });
+    });
+    
+    const animate = () => {
+        ctx.clearRect(0, 0, width, height);
+        
+        for (let i = trail.length - 1; i >= 0; i--) {
+            const drop = trail[i];
+            drop.y += drop.vy;
+            drop.opacity -= 0.015;
+            
+            if (drop.opacity <= 0 || drop.y > height) {
+                trail.splice(i, 1);
+                continue;
+            }
+            
+            ctx.font = `${drop.size}px monospace`;
+            ctx.fillStyle = `rgba(0, 255, 65, ${drop.opacity})`;
+            ctx.fillText(drop.val, drop.x, drop.y);
+        }
+        
+        requestAnimationFrame(animate);
+    }
+    animate();
+}
+
+// Parallax background blobs scroll
+const initParallaxScroll = () => {
+    const blobs = document.querySelectorAll('.blob-bg');
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        blobs.forEach((blob, idx) => {
+            const speed = (idx + 1) * 0.15;
+            blob.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+    });
+}
+
+// Project Details zoom morph overlay modal
+const initMorphModal = () => {
+    const modal = document.getElementById('projectModal');
+    const modalBody = modal ? modal.querySelector('.modal-body') : null;
+    const closeModal = modal ? modal.querySelector('.close-modal') : null;
+    const projectCards = document.querySelectorAll('.project-card');
+    
+    if (!modal || !modalBody || !closeModal) return;
+    
+    projectCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const title = card.querySelector('h3').innerText;
+            const description = card.querySelector('p').innerText;
+            const tech = card.querySelector('.project-tech') ? card.querySelector('.project-tech').innerHTML : '';
+            
+            modalBody.innerHTML = `
+                <h3>${title}</h3>
+                <p>${description}</p>
+                <div class="project-tech" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.5rem;">${tech}</div>
+            `;
+            
+            modal.classList.add('active');
+        });
+    });
+    
+    closeModal.addEventListener('click', () => {
+        modal.classList.remove('active');
+    });
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('active');
+        }
+    });
+}
+
 
 

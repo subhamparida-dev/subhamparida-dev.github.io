@@ -1297,3 +1297,146 @@ footer i {
     pointer-events: none;
     opacity: 0.35;
 }
+
+/* --- TOP 10 ADVANCED ANIMATIONS ADDITIONAL STYLES --- */
+
+/* 1. Matrix code rain cursor canvas overlay */
+#matrixTrailCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: 0.15;
+}
+
+/* 2. Liquid morphing avatar initials */
+.profile-placeholder {
+    animation: liquidMorph 8s ease-in-out infinite alternate;
+    padding: 1.5rem;
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.01);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes liquidMorph {
+    0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+    50% { border-radius: 30% 60% 70% 30% / 50% 60% 30% 60%; }
+    100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+}
+
+/* 3. Looping text marquee */
+.marquee-wrapper {
+    overflow: hidden;
+    white-space: nowrap;
+    background: rgba(108, 99, 255, 0.03);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1.2rem 0;
+    margin: 4rem 0;
+    width: 100%;
+}
+
+.marquee-content {
+    display: inline-block;
+    animation: marqueeRun 20s linear infinite;
+}
+
+.marquee-content span {
+    font-family: var(--font-main);
+    font-size: 1.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.15);
+    letter-spacing: 4px;
+    text-shadow: 0 0 10px rgba(108, 99, 255, 0.1);
+    padding-right: 2rem;
+}
+
+@keyframes marqueeRun {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+}
+
+/* 4. Split Image on Hover */
+.project-card:hover .project-img {
+    clip-path: polygon(0 0, 100% 0, 100% 30%, 0 35%, 0 65%, 100% 70%, 100% 100%, 0 100%);
+    filter: saturate(1.2) contrast(1.1);
+}
+
+.project-img {
+    transition: clip-path 0.4s ease, filter 0.4s ease;
+}
+
+/* 5. Project details zoom morph modal */
+.project-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(5, 5, 10, 0.85);
+    backdrop-filter: blur(15px);
+    z-index: 10005;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.project-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.project-modal .modal-content {
+    width: 90%;
+    max-width: 650px;
+    padding: 2.5rem;
+    border-radius: 20px;
+    position: relative;
+    transform: scale(0.8) translateY(20px);
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.project-modal.active .modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-modal:hover {
+    color: var(--secondary-color);
+}
+
+.modal-body h3 {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.modal-body p {
+    color: #ccc;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+/* 6. Timeline connection track line flow */
+.timeline::before {
+    background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+    box-shadow: 0 0 15px var(--primary-color);
+}
