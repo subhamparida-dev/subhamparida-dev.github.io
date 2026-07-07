@@ -98,13 +98,14 @@ def create_resume():
     pdf.ln(3)
 
     pdf.set_font("Helvetica", "B", 11)
-    pdf.cell(0, 5, "Airtel Cybersecurity Virtual Intern", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(0, 5, "Cybersecurity Virtual Intern (AICTE & EduSkills)", new_x="LMARGIN", new_y="NEXT")
     pdf.set_font("Helvetica", "", 10)
-    airtel_text = (
-        "- Analyzed telecom security frameworks, threat assessment flows, and defensive infrastructure strategies.\n"
-        "- Technologies: Threat Modeling, Risk Assessment, Security Auditing"
+    aicte_intern_text = (
+        "- Completed an 8-week virtual internship supported by Palo Alto Networks.\n"
+        "- Configured firewalls, analyzed threat vulnerabilities, and studied cloud security architectures.\n"
+        "- Technologies: Palo Alto Firewalls, Threat Analysis, Network Security"
     )
-    pdf.multi_cell(0, 5, airtel_text)
+    pdf.multi_cell(0, 5, aicte_intern_text)
     pdf.ln(3)
 
     pdf.set_font("Helvetica", "B", 11)
@@ -132,7 +133,7 @@ def create_resume():
     add_section("CERTIFICATIONS & STRENGTHS")
     pdf.set_font("Helvetica", "", 10)
     combined_strengths = (
-        "- Certifications: Palo Alto Cybersecurity Academy Credential, Airtel Cybersecurity Virtual Internship,\n"
+        "- Certifications: Palo Alto Cybersecurity Academy Credential, Palo Alto Cybersecurity Virtual Internship (AICTE),\n"
         "  Python Core (Python Institute), Django Web Dev (Meta), Flutter Architecture (Udemy), DSA (NPTEL).\n"
         "- Technical Strengths: Quick learner, strong analytical, threat analysis, backend architecture focus.\n"
         "- Extracurriculars: Active participant in technical symposiums and various coding challenges."

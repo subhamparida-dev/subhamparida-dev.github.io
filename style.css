@@ -1245,6 +1245,36 @@ footer i {
     transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Neon border trail */
+.project-card::after, .certificate-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 1.5px;
+    background: linear-gradient(135deg, transparent 30%, var(--primary-color), var(--secondary-color), transparent 70%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 4;
+    background-size: 200% 200%;
+    animation: borderMove 4s linear infinite;
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+}
+
+.project-card:hover::after, .certificate-card:hover::after {
+    opacity: 1;
+    animation-duration: 2s;
+}
+
+@keyframes borderMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 /* Hover colored shadow for skill tags */
 .skill-tag {
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -1254,4 +1284,16 @@ footer i {
     transform: translateY(-3px) scale(1.03);
     box-shadow: 0 4px 12px var(--clr);
     border-color: var(--clr);
+}
+
+/* Interactive Neural Network Particles */
+#particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    pointer-events: none;
+    opacity: 0.35;
 }

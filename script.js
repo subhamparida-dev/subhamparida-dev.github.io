@@ -193,6 +193,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initCursorGlow();
     initScrollProgress();
     initScrollToTop();
+    initParticles();
+    initCard3DTilt();
+    initHackerText();
+    initMagneticElements();
 });
 
 // Typing text animation
@@ -299,4 +303,181 @@ const initScrollToTop = () => {
         });
     });
 }
+
+// Interactive Neural Network Particles background canvas
+const initParticles = () => {
+    const canvas = document.getElementById('particleCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+    
+    const particles = [];
+    const maxParticles = 60;
+    
+    window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    });
+    
+    class Particle {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * 0.5;
+            this.vy = (Math.random() - 0.5) * 0.5;
+            this.radius = Math.random() * 1.5 + 1;
+        }
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            if (this.x < 0 || this.x > width) this.vx *= -1;
+            if (this.y < 0 || this.y > height) this.vy *= -1;
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(108, 99, 255, 0.4)';
+            ctx.fill();
+        }
+    }
+    
+    for (let i = 0; i < maxParticles; i++) {
+        particles.push(new Particle());
+    }
+    
+    let mouseX = null;
+    let mouseY = null;
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+    document.addEventListener('mouseleave', () => {
+        mouseX = null;
+        mouseY = null;
+    });
+    
+    const animate = () => {
+        ctx.clearRect(0, 0, width, height);
+        
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                
+                if (dist < 120) {
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.strokeStyle = `rgba(108, 99, 255, ${0.15 * (1 - dist / 120)})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.stroke();
+                }
+            }
+            
+            if (mouseX !== null && mouseY !== null) {
+                const dx = particles[i].x - mouseX;
+                const dy = particles[i].y - mouseY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 150) {
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(mouseX, mouseY);
+                    ctx.strokeStyle = `rgba(255, 101, 132, ${0.2 * (1 - dist / 150)})`;
+                    ctx.lineWidth = 0.6;
+                    ctx.stroke();
+                }
+            }
+        }
+        
+        requestAnimationFrame(animate);
+    };
+    
+    animate();
+}
+
+// 3D perspective tilt on hover
+const initCard3DTilt = () => {
+    const cards = document.querySelectorAll('.project-card, .certificate-card');
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = ((centerY - y) / centerY) * 10; // Degrees limit
+            const rotateY = ((x - centerX) / centerX) * 10;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+    });
+}
+
+// Hacker text scramble reveal
+const initHackerText = () => {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()_+{}|:<>?";
+    const titleElements = document.querySelectorAll('.section-title h2');
+    
+    titleElements.forEach(el => {
+        const originalText = el.innerText;
+        let isScrambling = false;
+        
+        el.addEventListener('mouseenter', () => {
+            if (isScrambling) return;
+            isScrambling = true;
+            let iteration = 0;
+            let interval = setInterval(() => {
+                el.innerText = originalText
+                    .split("")
+                    .map((char, index) => {
+                        if (char === " ") return " ";
+                        if (index < iteration) {
+                            return originalText[index];
+                        }
+                        return chars[Math.floor(Math.random() * chars.length)];
+                    })
+                    .join("");
+                
+                if (iteration >= originalText.length) {
+                    clearInterval(interval);
+                    isScrambling = false;
+                }
+                iteration += 1 / 3;
+            }, 30);
+        });
+    });
+}
+
+// Magnetic interactive attraction handles
+const initMagneticElements = () => {
+    const magneticItems = document.querySelectorAll('.social-icon, .submit-btn, .btn, .scroll-to-top');
+    magneticItems.forEach(item => {
+        item.addEventListener('mousemove', (e) => {
+            const rect = item.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            item.style.transform = `translate(${x * 0.35}px, ${y * 0.35}px)`;
+        });
+        
+        item.addEventListener('mouseleave', () => {
+            item.style.transform = 'translate(0px, 0px)';
+        });
+    });
+}
+
 
