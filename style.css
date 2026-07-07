@@ -1461,4 +1461,103 @@ footer i {
 .timeline::before {
     background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
     box-shadow: 0 0 15px var(--primary-color);
+}
+
+/* --- CYBER CUSTOM AMENITIES --- */
+
+/* TRON Grid Overlay on body */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: 
+        linear-gradient(rgba(108, 99, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(108, 99, 255, 0.02) 1px, transparent 1px);
+    background-size: 50px 50px;
+    z-index: -3;
+    pointer-events: none;
+    animation: gridPulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes gridPulse {
+    0% { opacity: 0.3; }
+    100% { opacity: 0.7; }
+}
+
+/* Click Neon Shockwave */
+.click-ripple {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--secondary-color);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: none;
+    z-index: 10006;
+    opacity: 1;
+    transition: transform 0.6s cubic-bezier(0.1, 0.8, 0.3, 1), opacity 0.6s ease;
+    box-shadow: 0 0 10px var(--secondary-color);
+}
+
+/* Cyber Console Status Feed Widget */
+.cyber-console {
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    padding: 8px 15px;
+    background: rgba(5, 5, 10, 0.85);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: #00FF41;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+}
+
+.console-dot {
+    width: 6px;
+    height: 6px;
+    background: #00FF41;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00FF41;
+    animation: consoleBlink 1s infinite alternate;
+}
+
+@keyframes consoleBlink {
+    0% { opacity: 0.3; }
+    100% { opacity: 1; }
+}
+
+/* Recurring Metallic Glare reflect sweeps */
+.hero-content, .about-content {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content::before, .about-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.04) 50%, rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-25deg);
+    animation: glareSweep 15s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 3;
+}
+
+@keyframes glareSweep {
+    0% { left: -150%; }
+    15% { left: 150%; }
+    100% { left: 150%; }
 }

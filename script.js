@@ -201,6 +201,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initMatrixCursorTrail();
     initParallaxScroll();
     initMorphModal();
+    initClickRipple();
+    initConsoleLogs();
 });
 
 // Typing text animation
@@ -669,6 +671,47 @@ const initMorphModal = () => {
         }
     });
 }
+
+// Click shockwave ripple spawner
+const initClickRipple = () => {
+    document.addEventListener('click', (e) => {
+        const ripple = document.createElement('div');
+        ripple.className = 'click-ripple';
+        ripple.style.left = `${e.clientX}px`;
+        ripple.style.top = `${e.clientY}px`;
+        document.body.appendChild(ripple);
+        
+        ripple.offsetWidth; // Force reflow
+        
+        ripple.style.transform = 'translate(-50%, -50%) scale(6)';
+        ripple.style.opacity = '0';
+        
+        setTimeout(() => {
+            ripple.remove();
+        }, 600);
+    });
+}
+
+// Terminal feed logger loop
+const initConsoleLogs = () => {
+    const consoleText = document.querySelector('.console-text');
+    if (!consoleText) return;
+    const logs = [
+        "SYSTEM: SECURE",
+        "FIREWALL: STANDBY",
+        "AI_AGENT: ONLINE",
+        "REST_APIS: DISPATCHED",
+        "PORTFOLIO: HOSTED",
+        "VISITOR_SECURE: TRUE",
+        "LOCAL_SERVE: ACTIVE"
+    ];
+    let i = 0;
+    setInterval(() => {
+        consoleText.textContent = logs[i];
+        i = (i + 1) % logs.length;
+    }, 4000);
+}
+
 
 
 
