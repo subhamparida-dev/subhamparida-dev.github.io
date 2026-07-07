@@ -326,9 +326,17 @@ body {
 }
 
 .profile-placeholder {
-    font-size: 8rem;
-    color: var(--text-color);
-    opacity: 0.8;
+    font-size: 6rem;
+    font-weight: 800;
+    font-family: var(--font-main);
+    background: linear-gradient(135deg, var(--text-color) 30%, rgba(255, 255, 255, 0.4) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -2px;
+    opacity: 0.95;
+    text-shadow: 0 0 40px rgba(108, 99, 255, 0.3);
+    user-select: none;
 }
 
 .greeting {
@@ -346,11 +354,32 @@ body {
     line-height: 1.1;
 }
 
-.role {
-    font-size: 1.5rem;
-    font-weight: 400;
+.role-wrapper {
+    font-size: 1.6rem;
     color: #ccc;
+    font-weight: 500;
     margin-bottom: 1.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.role-typing {
+    margin-left: 8px;
+    font-weight: 700;
+}
+
+/* Typing cursor animation */
+.cursor {
+    animation: blink 0.7s infinite;
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-left: 3px;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 .summary {
@@ -1127,4 +1156,102 @@ footer i {
     .glitch {
         font-size: 3rem;
     }
+}
+
+/* Interactive Cursor Follower */
+.cursor-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(108, 99, 255, 0.08) 0%, rgba(255, 101, 132, 0.02) 50%, rgba(0, 0, 0, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: screen;
+    will-change: transform;
+}
+
+/* Scroll Progress Line */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    z-index: 10002;
+    width: 0%;
+    transition: width 0.1s ease-out;
+}
+
+/* Scroll-to-Top Button */
+.scroll-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    color: #fff;
+    cursor: pointer;
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(15px);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+.scroll-to-top:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 25px rgba(108, 99, 255, 0.3);
+    color: var(--primary-color);
+}
+
+/* Card Sweep Shimmer pseudo-element */
+.project-card, .certificate-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.project-card::before, .certificate-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-25deg);
+    transition: none;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.project-card:hover::before, .certificate-card:hover::before {
+    left: 150%;
+    transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover colored shadow for skill tags */
+.skill-tag {
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.skill-tag:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 4px 12px var(--clr);
+    border-color: var(--clr);
 }

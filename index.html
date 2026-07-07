@@ -14,6 +14,9 @@
 </head>
 
 <body>
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <div class="cursor-glow" id="cursorGlow"></div>
+
     <div class="blob-bg"></div>
     <div class="blob-bg blob-2"></div>
 
@@ -40,7 +43,7 @@
             <div class="hero-content glass-panel">
                 <span class="greeting">Hello, world! I am</span>
                 <h1 class="glitch" data-text="Subham Parida">Subham Parida</h1>
-                <h2 class="role">Software Developer & Tech Enthusiast</h2>
+                <h2 class="role-wrapper">I build <span class="role-typing highlight"></span><span class="cursor">|</span></h2>
                 <p class="summary">Crafting elegant solutions to complex problems with robust code and modern
                     architectures.</p>
                 <div class="cta-buttons">
@@ -52,9 +55,7 @@
                 </div>
             </div>
             <div class="hero-image glass-panel">
-                <div class="profile-placeholder">
-                    <i class="fa-solid fa-code"></i>
-                </div>
+                <div class="profile-placeholder">SP</div>
                 <!-- Floating Tech Icons -->
                 <div class="floating-icon icon-python"><i class="fa-brands fa-python"></i></div>
                 <div class="floating-icon icon-java"><i class="fa-brands fa-java"></i></div>
@@ -450,6 +451,9 @@
     <footer>
         <p>&copy; 2026 Subham Parida. Designed with <i class="fa-solid fa-heart"></i> & Code.</p>
     </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="scroll-to-top glass-panel"><i class="fa-solid fa-arrow-up"></i></button>
 
     <script src="script.js"></script>
 </body>

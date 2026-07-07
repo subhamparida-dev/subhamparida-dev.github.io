@@ -187,4 +187,116 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 10);
         });
     }
+
+    // Initialize premium animations
+    initTypingAnimation();
+    initCursorGlow();
+    initScrollProgress();
+    initScrollToTop();
 });
+
+// Typing text animation
+const initTypingAnimation = () => {
+    const typingSpan = document.querySelector('.role-typing');
+    const roles = [
+        "hyperlocal home-service platforms.",
+        "full-stack Django backends.",
+        "cross-platform Flutter apps.",
+        "secure network systems.",
+        "automated AI agent workflows."
+    ];
+    let roleIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeEffect() {
+        const currentRole = roles[roleIndex];
+        
+        if (isDeleting) {
+            typingSpan.textContent = currentRole.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            typingSpan.textContent = currentRole.substring(0, charIndex + 1);
+            charIndex++;
+        }
+
+        let typeSpeed = isDeleting ? 40 : 80;
+
+        if (!isDeleting && charIndex === currentRole.length) {
+            typeSpeed = 1500; // Pause at end
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            roleIndex = (roleIndex + 1) % roles.length;
+            typeSpeed = 500; // Pause before typing next word
+        }
+
+        setTimeout(typeEffect, typeSpeed);
+    }
+
+    if (typingSpan) {
+        setTimeout(typeEffect, 1000);
+    }
+}
+
+// Spotlight Cursor Follower
+const initCursorGlow = () => {
+    const glow = document.getElementById('cursorGlow');
+    if (!glow) return;
+
+    let mouseX = 0, mouseY = 0;
+    let glowX = 0, glowY = 0;
+    const speed = 0.08; // Inertia factor (lower = smoother/slower)
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+    });
+
+    const animateGlow = () => {
+        const dx = mouseX - glowX;
+        const dy = mouseY - glowY;
+        glowX += dx * speed;
+        glowY += dy * speed;
+
+        glow.style.transform = `translate(${glowX - 100}px, ${glowY - 100}px)`;
+        requestAnimationFrame(animateGlow);
+    };
+    
+    animateGlow();
+}
+
+// Scroll Progress Indicator
+const initScrollProgress = () => {
+    const progressBar = document.getElementById('scrollProgress');
+    if (!progressBar) return;
+
+    window.addEventListener('scroll', () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        progressBar.style.width = scrolled + "%";
+    });
+}
+
+// Scroll To Top Button
+const initScrollToTop = () => {
+    const btn = document.getElementById('scrollToTop');
+    if (!btn) return;
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+            btn.classList.add('visible');
+        } else {
+            btn.classList.remove('visible');
+        }
+    });
+
+    btn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
