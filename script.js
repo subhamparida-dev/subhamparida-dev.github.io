@@ -491,7 +491,7 @@ const initSkillsSphere = () => {
     const ctx = canvas.getContext('2d');
     const tags = ['Django', 'Python', 'Flutter', 'PostgreSQL', 'Firebase', 'Java', 'JavaScript', 'Git', 'MCP', 'LLMs', 'Dart', 'Meta Ads', 'Branding'];
     
-    let radius = 95;
+    let radius = 125;
     let counts = tags.length;
     let particles = [];
     
