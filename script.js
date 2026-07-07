@@ -491,7 +491,7 @@ const initSkillsSphere = () => {
     const ctx = canvas.getContext('2d');
     const tags = ['Django', 'Python', 'Flutter', 'PostgreSQL', 'Firebase', 'Java', 'JavaScript', 'Git', 'MCP', 'LLMs', 'Dart', 'Meta Ads', 'Branding'];
     
-    let radius = 125;
+    let radius = 95;
     let counts = tags.length;
     let particles = [];
     
@@ -534,7 +534,7 @@ const initSkillsSphere = () => {
             ctx.scale(scale, scale);
             
             ctx.font = `bold 11px Outfit, sans-serif`;
-            ctx.fillStyle = `rgba(108, 99, 255, ${alpha})`;
+            ctx.fillStyle = `rgba(90, 80, 220, ${alpha * 0.7})`;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText(this.text, this.x, this.y);
