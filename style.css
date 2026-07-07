@@ -845,6 +845,164 @@ body {
     line-height: 1.7;
 }
 
+/* Certificates Section */
+.cert-category-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 2.5rem 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 0.5rem;
+}
+
+.certificates-container {
+    display: grid;
+    gap: 2rem;
+    padding-top: 1rem;
+}
+
+.major-internships {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.course-modules {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+}
+
+.certificate-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.certificate-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.certificate-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Specific Brand Glows */
+.airtel-glow:hover {
+    border-color: #E11A22;
+    box-shadow: 0 10px 30px rgba(225, 26, 34, 0.15);
+}
+
+.pan-glow:hover {
+    border-color: #F89B2B;
+    box-shadow: 0 10px 30px rgba(248, 155, 43, 0.15);
+}
+
+.module-card {
+    padding: 1.2rem;
+    gap: 1rem;
+    border-radius: 15px;
+}
+
+.module-card:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 10px 25px rgba(108, 99, 255, 0.12);
+}
+
+.cert-icon {
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 65px;
+    height: 65px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    flex-shrink: 0;
+    transition: transform 0.4s ease;
+}
+
+.cert-icon-small {
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    flex-shrink: 0;
+    transition: transform 0.4s ease;
+}
+
+.certificate-card:hover .cert-icon,
+.certificate-card:hover .cert-icon-small {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.cert-info h3 {
+    font-size: 1.25rem;
+    color: #fff;
+    margin-bottom: 4px;
+}
+
+.cert-info h4 {
+    font-size: 1.05rem;
+    color: #fff;
+    margin-bottom: 4px;
+}
+
+.cert-issuer {
+    font-size: 0.95rem;
+    color: #ccc;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.module-card .cert-issuer {
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+}
+
+.cert-date {
+    font-size: 0.85rem;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+.module-card .cert-date {
+    font-size: 0.75rem;
+    margin-bottom: 8px;
+}
+
+.cert-links {
+    margin-top: 5px;
+}
+
+.btn-small-link {
+    font-size: 0.8rem;
+    text-decoration: none;
+    color: var(--primary-color);
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s ease;
+}
+
+.btn-small-link:hover {
+    color: var(--secondary-color);
+}
+
 /* Footer */
 footer {
     text-align: center;

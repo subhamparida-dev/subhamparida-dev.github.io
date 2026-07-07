@@ -44,6 +44,7 @@ const reveal = () => {
     const contactContainer = document.querySelector('.contact-container');
     const projectCards = document.querySelectorAll('.project-card');
     const timelineItems = document.querySelectorAll('.timeline-item');
+    const certificateCards = document.querySelectorAll('.certificate-card');
 
     const windowHeight = window.innerHeight;
     const elementVisible = 150;
@@ -91,6 +92,16 @@ const reveal = () => {
             setTimeout(() => {
                 item.classList.add('visible');
             }, index * 200);
+        }
+    });
+
+    // Handle certificate cards
+    certificateCards.forEach((card, index) => {
+        const elementTop = card.getBoundingClientRect().top;
+        if (elementTop < windowHeight - elementVisible) {
+            setTimeout(() => {
+                card.classList.add('visible');
+            }, index * 150);
         }
     });
 
