@@ -1312,14 +1312,33 @@ footer i {
     opacity: 0.15;
 }
 
-/* 2. Liquid morphing avatar initials */
+/* 2. Liquid morphing avatar initials background container */
 .profile-placeholder {
-    animation: liquidMorph 8s ease-in-out infinite alternate;
-    padding: 1.5rem;
+    position: relative;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.profile-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
     border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    animation: liquidMorph 8s ease-in-out infinite alternate;
     border: 1px solid rgba(255, 255, 255, 0.05);
-    background: rgba(255, 255, 255, 0.01);
+    background: rgba(255, 255, 255, 0.02);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transition: all 0.5s ease;
+    z-index: -1;
+}
+
+.profile-placeholder:hover::before {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 35px rgba(108, 99, 255, 0.25);
 }
 
 @keyframes liquidMorph {
