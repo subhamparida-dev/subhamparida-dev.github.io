@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "subham-portfolio-da67b"
-  }
+  },
+  "targets": {
+    "subham-portfolio-da67b": {
+      "hosting": {
+        "subhamparida": [
+          "subhamparida"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }
