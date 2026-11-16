@@ -7,6 +7,9 @@
       "hosting": {
         "subhamparida": [
           "subhamparida"
+        ],
+        "default": [
+          "subham-portfolio-da67b"
         ]
       }
     }
